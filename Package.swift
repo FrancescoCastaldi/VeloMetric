@@ -13,10 +13,18 @@ let package = Package(
             name: "VeloMetric",
             targets: ["VeloMetric"]),
     ],
+    dependencies: [
+        .package(url: "https://github.com/firebase/firebase-ios-sdk.git", from: "10.20.0")
+    ],
     targets: [
         .target(
             name: "VeloMetric",
+            dependencies: [
+                .product(name: "FirebaseAuth", package: "firebase-ios-sdk"),
+                .product(name: "FirebaseFirestore", package: "firebase-ios-sdk")
+            ],
             path: "src/VeloMetric"
         ),
     ]
 )
+

@@ -1,8 +1,14 @@
 import SwiftUI
+import FirebaseCore
 
 @main
 struct VeloMetricApp: App {
     @StateObject private var garageViewModel = GarageViewModel()
+    @StateObject private var authViewModel = AuthViewModel()
+    
+    init() {
+        FirebaseApp.configure()
+    }
     
     var body: some Scene {
         WindowGroup {
@@ -18,7 +24,14 @@ struct VeloMetricApp: App {
                     }
             }
             .environmentObject(garageViewModel)
+            .environmentObject(authViewModel)
             .tint(.green)
+            .onAppear {
+                if !authViewModel.isAuthenticated {
+                    authViewModel.signInAnonymously()
+                }
+            }
         }
     }
 }
+

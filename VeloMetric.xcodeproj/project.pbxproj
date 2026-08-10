@@ -14,7 +14,11 @@
 		FA00000000000000000B0005 /* GarageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA00000000000000000A0005 /* GarageViewModel.swift */; };
 		FA00000000000000000B0006 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA00000000000000000A0006 /* DashboardView.swift */; };
 		FA00000000000000000B0007 /* BikeGarageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA00000000000000000A0007 /* BikeGarageView.swift */; };
+		FA00000000000000000B0010 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA00000000000000000A0011 /* AuthViewModel.swift */; };
+
 		FA00000000000000000B0008 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA00000000000000000A0008 /* Assets.xcassets */; };
+		FA00000000000000000B0009 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA00000000000000000A0010 /* GoogleService-Info.plist */; };
+
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,7 +29,11 @@
 		FA00000000000000000A0005 /* GarageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarageViewModel.swift; sourceTree = "<group>"; };
 		FA00000000000000000A0006 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		FA00000000000000000A0007 /* BikeGarageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeGarageView.swift; sourceTree = "<group>"; };
+		FA00000000000000000A0011 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
+
 		FA00000000000000000A0008 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		FA00000000000000000A0010 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+
 		FA00000000000000000A0009 /* VeloMetric.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VeloMetric.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -56,7 +64,9 @@
 				FA00000000000000000C0004 /* ViewModels */,
 				FA00000000000000000C0005 /* Views */,
 				FA00000000000000000A0008 /* Assets.xcassets */,
+				FA00000000000000000A0010 /* GoogleService-Info.plist */,
 			);
+
 			path = "src/VeloMetric";
 			sourceTree = "<group>";
 		};
@@ -74,7 +84,9 @@
 			isa = PBXGroup;
 			children = (
 				FA00000000000000000A0005 /* GarageViewModel.swift */,
+				FA00000000000000000A0011 /* AuthViewModel.swift */,
 			);
+
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
@@ -154,7 +166,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA00000000000000000B0008 /* Assets.xcassets in Resources */,
+				FA00000000000000000B0009 /* GoogleService-Info.plist in Resources */,
 			);
+
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
@@ -171,6 +185,7 @@
 				FA00000000000000000B0005 /* GarageViewModel.swift in Sources */,
 				FA00000000000000000B0006 /* DashboardView.swift in Sources */,
 				FA00000000000000000B0007 /* BikeGarageView.swift in Sources */,
+				FA00000000000000000B0010 /* AuthViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
