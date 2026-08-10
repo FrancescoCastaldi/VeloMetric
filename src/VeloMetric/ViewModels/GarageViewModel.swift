@@ -6,6 +6,7 @@ import FirebaseFirestore
 class GarageViewModel: ObservableObject {
     @Published var bikes: [Bike] = []
     @Published var components: [Component] = []
+    @Published var rides: [Ride] = []
     @Published var isLoading = false
     @Published var isSyncedWithCloud = false
     @Published var errorMessage: String?
@@ -13,6 +14,7 @@ class GarageViewModel: ObservableObject {
     private let firestoreService = FirestoreService()
     private var bikeListener: ListenerRegistration?
     private var componentListener: ListenerRegistration?
+    private var rideListener: ListenerRegistration?
     private var currentUserId: String?
     
     init() {
@@ -26,6 +28,7 @@ class GarageViewModel: ObservableObject {
         
         bikeListener?.remove()
         componentListener?.remove()
+        rideListener?.remove()
         
         bikeListener = firestoreService.listenBikes(userId: userId) { [weak self] result in
             DispatchQueue.main.async {
@@ -36,7 +39,6 @@ class GarageViewModel: ObservableObject {
                         self?.bikes = cloudBikes
                         self?.isSyncedWithCloud = true
                     } else if let bikes = self?.bikes, !bikes.isEmpty {
-                        // Push initial mock data to Cloud if cloud is empty
                         for bike in bikes {
                             Task {
                                 try? await self?.firestoreService.saveBike(bike, userId: userId)
@@ -57,13 +59,23 @@ class GarageViewModel: ObservableObject {
                         self?.components = cloudComponents
                         self?.isSyncedWithCloud = true
                     } else if let components = self?.components, !components.isEmpty {
-                        // Push initial mock components to Cloud
                         for comp in components {
                             Task {
                                 try? await self?.firestoreService.saveComponent(comp, userId: userId)
                             }
                         }
                     }
+                case .failure(let error):
+                    self?.errorMessage = error.localizedDescription
+                }
+            }
+        }
+        
+        rideListener = firestoreService.listenRides(userId: userId) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let cloudRides):
+                    self?.rides = cloudRides
                 case .failure(let error):
                     self?.errorMessage = error.localizedDescription
                 }
@@ -140,8 +152,61 @@ class GarageViewModel: ObservableObject {
         }
     }
     
+    func replaceComponent(_ component: Component) {
+        if let index = components.firstIndex(where: { $0.id == component.id }) {
+            components[index].currentMileage = 0
+            components[index].dateInstalled = Date()
+            let updated = components[index]
+            
+            if let userId = currentUserId {
+                Task {
+                    try? await firestoreService.saveComponent(updated, userId: userId)
+                }
+            }
+        }
+    }
+    
+    func logRide(bikeId: String, title: String, distance: Double, date: Date = Date()) {
+        let newRide = Ride(bikeId: bikeId, date: date, distance: distance, title: title, source: "Manual")
+        rides.insert(newRide, at: 0)
+        
+        // 1. Update Bike total mileage
+        if let bikeIndex = bikes.firstIndex(where: { $0.id == bikeId }) {
+            bikes[bikeIndex].totalMileage += distance
+            let updatedBike = bikes[bikeIndex]
+            
+            if let userId = currentUserId {
+                Task {
+                    try? await firestoreService.saveBike(updatedBike, userId: userId)
+                }
+            }
+        }
+        
+        // 2. Update components mileage for this bike
+        for index in components.indices {
+            if components[index].bikeId == bikeId {
+                components[index].currentMileage += distance
+                let updatedComp = components[index]
+                
+                if let userId = currentUserId {
+                    Task {
+                        try? await firestoreService.saveComponent(updatedComp, userId: userId)
+                    }
+                }
+            }
+        }
+        
+        // 3. Save Ride to Cloud
+        if let userId = currentUserId {
+            Task {
+                try? await firestoreService.saveRide(newRide, userId: userId)
+            }
+        }
+    }
+    
     deinit {
         bikeListener?.remove()
         componentListener?.remove()
+        rideListener?.remove()
     }
 }

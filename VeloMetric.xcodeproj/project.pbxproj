@@ -18,6 +18,9 @@
 		FA00000000000000000B0011 /* FirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA00000000000000000A0012 /* FirestoreService.swift */; };
 		FA00000000000000000B0012 /* AddBikeSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA00000000000000000A0013 /* AddBikeSheet.swift */; };
 		FA00000000000000000B0013 /* AddComponentSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA00000000000000000A0014 /* AddComponentSheet.swift */; };
+		FA00000000000000000B0014 /* LogRideSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA00000000000000000A0015 /* LogRideSheet.swift */; };
+		FA00000000000000000B0015 /* ComponentDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA00000000000000000A0016 /* ComponentDetailView.swift */; };
+
 
 
 		FA00000000000000000B0008 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA00000000000000000A0008 /* Assets.xcassets */; };
@@ -37,6 +40,9 @@
 		FA00000000000000000A0012 /* FirestoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreService.swift; sourceTree = "<group>"; };
 		FA00000000000000000A0013 /* AddBikeSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBikeSheet.swift; sourceTree = "<group>"; };
 		FA00000000000000000A0014 /* AddComponentSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddComponentSheet.swift; sourceTree = "<group>"; };
+		FA00000000000000000A0015 /* LogRideSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogRideSheet.swift; sourceTree = "<group>"; };
+		FA00000000000000000A0016 /* ComponentDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentDetailView.swift; sourceTree = "<group>"; };
+
 
 
 		FA00000000000000000A0008 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -107,6 +113,8 @@
 				FA00000000000000000A0007 /* BikeGarageView.swift */,
 				FA00000000000000000A0013 /* AddBikeSheet.swift */,
 				FA00000000000000000A0014 /* AddComponentSheet.swift */,
+				FA00000000000000000A0015 /* LogRideSheet.swift */,
+				FA00000000000000000A0016 /* ComponentDetailView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -210,7 +218,10 @@
 				FA00000000000000000B0011 /* FirestoreService.swift in Sources */,
 				FA00000000000000000B0012 /* AddBikeSheet.swift in Sources */,
 				FA00000000000000000B0013 /* AddComponentSheet.swift in Sources */,
+				FA00000000000000000B0014 /* LogRideSheet.swift in Sources */,
+				FA00000000000000000B0015 /* ComponentDetailView.swift in Sources */,
 			);
+
 
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -37,6 +37,23 @@ class FirestoreService: ObservableObject {
             }
     }
     
+    func listenRides(userId: String, completion: @escaping (Result<[Ride], Error>) -> Void) -> ListenerRegistration {
+        return db.collection("users").document(userId).collection("rides")
+            .order(by: "date", descending: true)
+            .addSnapshotListener { snapshot, error in
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+                guard let documents = snapshot?.documents else {
+                    completion(.success([]))
+                    return
+                }
+                let rides = documents.compactMap { try? $0.data(as: Ride.self) }
+                completion(.success(rides))
+            }
+    }
+    
     func saveBike(_ bike: Bike, userId: String) async throws {
         try db.collection("users").document(userId).collection("bikes").document(bike.id).setData(from: bike)
     }
@@ -51,5 +68,13 @@ class FirestoreService: ObservableObject {
     
     func deleteComponent(componentId: String, userId: String) async throws {
         try await db.collection("users").document(userId).collection("components").document(componentId).delete()
+    }
+    
+    func saveRide(_ ride: Ride, userId: String) async throws {
+        try db.collection("users").document(userId).collection("rides").document(ride.id).setData(from: ride)
+    }
+    
+    func deleteRide(rideId: String, userId: String) async throws {
+        try await db.collection("users").document(userId).collection("rides").document(rideId).delete()
     }
 }

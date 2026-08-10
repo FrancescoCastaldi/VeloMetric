@@ -3,6 +3,8 @@ import SwiftUI
 struct DashboardView: View {
     @EnvironmentObject var viewModel: GarageViewModel
     @State private var showingAddComponentSheet = false
+    @State private var showingLogRideSheet = false
+    @State private var selectedComponentForDetail: Component? = nil
     @State private var selectedBikeId: String? = nil
     
     var activeBike: Bike? {
@@ -38,14 +40,13 @@ struct DashboardView: View {
                 } else {
                     ScrollView {
                         VStack(spacing: 20) {
-                            // Bike Selector Menu if multiple bikes
                             if let bike = activeBike {
                                 HStack {
                                     VStack(alignment: .leading, spacing: 4) {
                                         Text(bike.name)
                                             .font(.system(size: 28, weight: .bold, design: .rounded))
                                             .foregroundColor(.white)
-                                        Text("\(bike.brand) • \(Int(bike.totalMileage)) km")
+                                        Text("\(bike.brand) • \(Int(bike.totalMileage)) km total")
                                             .font(.subheadline)
                                             .foregroundColor(.gray)
                                     }
@@ -84,11 +85,52 @@ struct DashboardView: View {
                                                 .cornerRadius(16)
                                         }
                                     }
-                                    .padding(.top, 40)
+                                    .padding(.top, 20)
                                 } else {
                                     ForEach(components) { component in
-                                        ComponentCard(component: component) {
-                                            viewModel.deleteComponent(component)
+                                        Button(action: { selectedComponentForDetail = component }) {
+                                            ComponentCard(component: component) {
+                                                viewModel.deleteComponent(component)
+                                            }
+                                        }
+                                        .buttonStyle(PlainButtonStyle())
+                                    }
+                                }
+                                
+                                // Recent Rides Section
+                                let bikeRides = viewModel.rides.filter { $0.bikeId == bike.id }
+                                if !bikeRides.isEmpty {
+                                    VStack(alignment: .leading, spacing: 12) {
+                                        Text("Recent Activity")
+                                            .font(.title3.bold())
+                                            .foregroundColor(.white)
+                                            .padding(.horizontal)
+                                            .padding(.top, 10)
+                                        
+                                        ForEach(bikeRides.prefix(3)) { ride in
+                                            HStack {
+                                                Image(systemName: "figure.outdoor.cycle")
+                                                    .font(.title2)
+                                                    .foregroundColor(.green)
+                                                    .frame(width: 40)
+                                                
+                                                VStack(alignment: .leading, spacing: 2) {
+                                                    Text(ride.title)
+                                                        .font(.headline)
+                                                        .foregroundColor(.white)
+                                                    Text(ride.date, style: .date)
+                                                        .font(.caption)
+                                                        .foregroundColor(.gray)
+                                                }
+                                                Spacer()
+                                                Text("+\(String(format: "%.1f", ride.distance)) km")
+                                                    .bold()
+                                                    .foregroundColor(.green)
+                                            }
+                                            .padding()
+                                            .background(Color.white.opacity(0.03))
+                                            .cornerRadius(12)
+                                            .padding(.horizontal)
                                         }
                                     }
                                 }
@@ -100,6 +142,22 @@ struct DashboardView: View {
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: { showingLogRideSheet = true }) {
+                        HStack(spacing: 4) {
+                            Image(systemName: "figure.outdoor.cycle")
+                            Text("Log Ride")
+                                .font(.caption.bold())
+                        }
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 6)
+                        .background(Color.green)
+                        .foregroundColor(.black)
+                        .cornerRadius(16)
+                    }
+                    .disabled(viewModel.bikes.isEmpty)
+                }
+                
                 ToolbarItem(placement: .principal) {
                     Text("VeloMetric")
                         .font(.headline)
@@ -121,6 +179,14 @@ struct DashboardView: View {
                     AddComponentSheet(bikeId: bike.id)
                         .environmentObject(viewModel)
                 }
+            }
+            .sheet(isPresented: $showingLogRideSheet) {
+                LogRideSheet()
+                    .environmentObject(viewModel)
+            }
+            .sheet(item: $selectedComponentForDetail) { component in
+                ComponentDetailView(component: component)
+                    .environmentObject(viewModel)
             }
         }
         .preferredColorScheme(.dark)
@@ -166,6 +232,10 @@ struct ComponentCard: View {
             }
             
             Spacer()
+            
+            Image(systemName: "chevron.right")
+                .foregroundColor(.gray)
+                .font(.caption)
         }
         .padding()
         .background(Color.white.opacity(0.05))
