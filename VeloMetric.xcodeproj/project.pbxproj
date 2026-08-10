@@ -66,6 +66,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA0SPM000000000000B00001 /* FirebaseAuth in Frameworks */,
+				FA0SPM000000000000B00002 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -168,6 +170,10 @@
 			dependencies = (
 			);
 			name = VeloMetric;
+			packageProductDependencies = (
+				FA0SPM000000000000D00001 /* FirebaseAuth */,
+				FA0SPM000000000000D00002 /* FirebaseFirestore */,
+			);
 			productName = VeloMetric;
 			productReference = FA00000000000000000A0009 /* VeloMetric.app */;
 			productType = "com.apple.product-type.application";
@@ -197,6 +203,9 @@
 			);
 			mainGroup = FA00000000000000000C0001;
 			productRefGroup = FA00000000000000000C0006 /* Products */;
+			packageReferences = (
+				FA0SPM000000000000A00001 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -435,5 +444,30 @@
 /* End XCConfigurationList section */
 
 	};
+
+/* Begin XCRemoteSwiftPackageReference section */
+		FA0SPM000000000000A00001 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		FA0SPM000000000000D00001 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FA0SPM000000000000A00001 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		FA0SPM000000000000D00002 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FA0SPM000000000000A00001 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+/* End XCSwiftPackageProductDependency section */
+
 	rootObject = FA000000000000000010001 /* Project object */;
 }
