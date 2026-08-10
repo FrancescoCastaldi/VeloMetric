@@ -14,6 +14,41 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
+      - name: Create GoogleService-Info.plist
+        run: |
+          cat << 'EOF' > src/VeloMetric/GoogleService-Info.plist
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+          	<key>API_KEY</key>
+          	<string>AIzaSyCqTCqWpmB6NaqfOLlKRLGKHb7Ct8hHlzg</string>
+          	<key>GCM_SENDER_ID</key>
+          	<string>207443869937</string>
+          	<key>PLIST_VERSION</key>
+          	<string>1</string>
+          	<key>BUNDLE_ID</key>
+          	<string>com.francescocastaldi.VeloMetric</string>
+          	<key>PROJECT_ID</key>
+          	<string>velometric-app-72c0e</string>
+          	<key>STORAGE_BUCKET</key>
+          	<string>velometric-app-72c0e.firebasestorage.app</string>
+          	<key>IS_ADS_ENABLED</key>
+          	<false/>
+          	<key>IS_ANALYTICS_ENABLED</key>
+          	<false/>
+          	<key>IS_APPINVITE_ENABLED</key>
+          	<true/>
+          	<key>IS_GCM_ENABLED</key>
+          	<true/>
+          	<key>IS_SIGNIN_ENABLED</key>
+          	<true/>
+          	<key>GOOGLE_APP_ID</key>
+          	<string>1:207443869937:ios:739fc2be6f4ba9d5cd6950</string>
+          </dict>
+          </plist>
+          EOF
+
       - name: Set up Xcode
         uses: maxim-lobanov/setup-xcode@v1
         with:
@@ -31,7 +66,7 @@ jobs:
                      clean build
 
           mkdir -p Payload
-          cp -r build/Release-iphoneos/VeloMetric.app Payload/
+          cp -r build/Release-iphoneos/VeloMetric.app Payload/ || cp -r ~/Library/Developer/Xcode/DerivedData/VeloMetric-*/Build/Products/Release-iphoneos/VeloMetric.app Payload/
           zip -r VeloMetric.ipa Payload
 
       - name: Upload iOS App Artifact
