@@ -4,8 +4,10 @@ struct DashboardView: View {
     @EnvironmentObject var viewModel: GarageViewModel
     @State private var showingAddComponentSheet = false
     @State private var showingLogRideSheet = false
+    @State private var showingStravaSheet = false
     @State private var selectedComponentForDetail: Component? = nil
     @State private var selectedBikeId: String? = nil
+
     
     var activeBike: Bike? {
         if let selectedId = selectedBikeId, let bike = viewModel.bikes.first(where: { $0.id == selectedId }) {
@@ -143,19 +145,27 @@ struct DashboardView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
-                    Button(action: { showingLogRideSheet = true }) {
-                        HStack(spacing: 4) {
-                            Image(systemName: "figure.outdoor.cycle")
-                            Text("Log Ride")
-                                .font(.caption.bold())
+                    HStack(spacing: 8) {
+                        Button(action: { showingLogRideSheet = true }) {
+                            HStack(spacing: 4) {
+                                Image(systemName: "figure.outdoor.cycle")
+                                Text("Log Ride")
+                                    .font(.caption.bold())
+                            }
+                            .padding(.horizontal, 10)
+                            .padding(.vertical, 6)
+                            .background(Color.green)
+                            .foregroundColor(.black)
+                            .cornerRadius(16)
                         }
-                        .padding(.horizontal, 10)
-                        .padding(.vertical, 6)
-                        .background(Color.green)
-                        .foregroundColor(.black)
-                        .cornerRadius(16)
+                        .disabled(viewModel.bikes.isEmpty)
+                        
+                        Button(action: { showingStravaSheet = true }) {
+                            Image(systemName: "link.circle.fill")
+                                .font(.title2)
+                                .foregroundColor(Color(red: 0.98, green: 0.31, blue: 0.08))
+                        }
                     }
-                    .disabled(viewModel.bikes.isEmpty)
                 }
                 
                 ToolbarItem(placement: .principal) {
@@ -182,6 +192,10 @@ struct DashboardView: View {
             }
             .sheet(isPresented: $showingLogRideSheet) {
                 LogRideSheet()
+                    .environmentObject(viewModel)
+            }
+            .sheet(isPresented: $showingStravaSheet) {
+                StravaConnectSheet()
                     .environmentObject(viewModel)
             }
             .sheet(item: $selectedComponentForDetail) { component in

@@ -22,11 +22,17 @@ struct VeloMetricApp: App {
                     .tabItem {
                         Label("Garage", systemImage: "bicycle")
                     }
+                
+                AnalyticsView()
+                    .tabItem {
+                        Label("Analytics", systemImage: "chart.bar.fill")
+                    }
             }
             .environmentObject(garageViewModel)
             .environmentObject(authViewModel)
             .tint(.green)
             .onAppear {
+                NotificationService.shared.requestPermission()
                 if !authViewModel.isAuthenticated {
                     authViewModel.signInAnonymously()
                 } else if let user = authViewModel.user {

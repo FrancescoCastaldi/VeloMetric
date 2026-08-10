@@ -20,6 +20,11 @@
 		FA00000000000000000B0013 /* AddComponentSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA00000000000000000A0014 /* AddComponentSheet.swift */; };
 		FA00000000000000000B0014 /* LogRideSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA00000000000000000A0015 /* LogRideSheet.swift */; };
 		FA00000000000000000B0015 /* ComponentDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA00000000000000000A0016 /* ComponentDetailView.swift */; };
+		FA00000000000000000B0016 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA00000000000000000A0017 /* NotificationService.swift */; };
+		FA00000000000000000B0017 /* StravaService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA00000000000000000A0018 /* StravaService.swift */; };
+		FA00000000000000000B0018 /* StravaConnectSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA00000000000000000A0019 /* StravaConnectSheet.swift */; };
+		FA00000000000000000B0019 /* AnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA00000000000000000A0020 /* AnalyticsView.swift */; };
+
 
 
 
@@ -42,6 +47,11 @@
 		FA00000000000000000A0014 /* AddComponentSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddComponentSheet.swift; sourceTree = "<group>"; };
 		FA00000000000000000A0015 /* LogRideSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogRideSheet.swift; sourceTree = "<group>"; };
 		FA00000000000000000A0016 /* ComponentDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentDetailView.swift; sourceTree = "<group>"; };
+		FA00000000000000000A0017 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		FA00000000000000000A0018 /* StravaService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StravaService.swift; sourceTree = "<group>"; };
+		FA00000000000000000A0019 /* StravaConnectSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StravaConnectSheet.swift; sourceTree = "<group>"; };
+		FA00000000000000000A0020 /* AnalyticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsView.swift; sourceTree = "<group>"; };
+
 
 
 
@@ -115,7 +125,10 @@
 				FA00000000000000000A0014 /* AddComponentSheet.swift */,
 				FA00000000000000000A0015 /* LogRideSheet.swift */,
 				FA00000000000000000A0016 /* ComponentDetailView.swift */,
+				FA00000000000000000A0019 /* StravaConnectSheet.swift */,
+				FA00000000000000000A0020 /* AnalyticsView.swift */,
 			);
+
 			path = Views;
 			sourceTree = "<group>";
 		};
@@ -123,10 +136,13 @@
 			isa = PBXGroup;
 			children = (
 				FA00000000000000000A0012 /* FirestoreService.swift */,
+				FA00000000000000000A0017 /* NotificationService.swift */,
+				FA00000000000000000A0018 /* StravaService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
 		};
+
 
 		FA00000000000000000C0006 /* Products */ = {
 			isa = PBXGroup;
@@ -220,7 +236,12 @@
 				FA00000000000000000B0013 /* AddComponentSheet.swift in Sources */,
 				FA00000000000000000B0014 /* LogRideSheet.swift in Sources */,
 				FA00000000000000000B0015 /* ComponentDetailView.swift in Sources */,
+				FA00000000000000000B0016 /* NotificationService.swift in Sources */,
+				FA00000000000000000B0017 /* StravaService.swift in Sources */,
+				FA00000000000000000B0018 /* StravaConnectSheet.swift in Sources */,
+				FA00000000000000000B0019 /* AnalyticsView.swift in Sources */,
 			);
+
 
 
 			runOnlyForDeploymentPostprocessing = 0;

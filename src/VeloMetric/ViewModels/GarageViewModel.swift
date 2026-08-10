@@ -58,6 +58,7 @@ class GarageViewModel: ObservableObject {
                     if !cloudComponents.isEmpty {
                         self?.components = cloudComponents
                         self?.isSyncedWithCloud = true
+                        NotificationService.shared.checkAndNotifyComponentWear(components: cloudComponents)
                     } else if let components = self?.components, !components.isEmpty {
                         for comp in components {
                             Task {
