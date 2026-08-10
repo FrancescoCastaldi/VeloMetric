@@ -29,9 +29,17 @@ struct VeloMetricApp: App {
             .onAppear {
                 if !authViewModel.isAuthenticated {
                     authViewModel.signInAnonymously()
+                } else if let user = authViewModel.user {
+                    garageViewModel.setupCloudSync(userId: user.uid)
+                }
+            }
+            .onChange(of: authViewModel.user) { newUser in
+                if let user = newUser {
+                    garageViewModel.setupCloudSync(userId: user.uid)
                 }
             }
         }
     }
 }
+
 
