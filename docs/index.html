@@ -180,12 +180,34 @@
 
         <div class="relative border-l border-white/10 ml-4 md:ml-0 md:pl-0 space-y-12">
             
-            <!-- Phase 3: Firebase Backend & Interactive Forms -->
+            <!-- Phase 4: Strava, Notifications & Charts -->
             <div class="relative md:pl-8 scroll-animate">
                 <div class="absolute -left-[5px] md:-left-2 top-2 w-3 h-3 rounded-full bg-green-500 shadow-[0_0_10px_rgba(52,211,153,0.8)] ring-4 ring-black"></div>
                 <div class="glass p-6 rounded-2xl hover:bg-white/[0.05] transition-colors border-l-4 border-l-green-500">
                     <div class="flex items-center gap-3 mb-2">
-                        <span class="text-green-400 font-bold text-sm tracking-wider uppercase">Phase 3: Backend & Forms</span>
+                        <span class="text-green-400 font-bold text-sm tracking-wider uppercase">Phase 4: Advanced Features</span>
+                        <span class="text-gray-500 text-xs">August 10, 2026</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Strava API, Push Notifications & SwiftUI Charts</h3>
+                    <p class="text-gray-300 text-sm leading-relaxed mb-4">
+                        Integrated Strava API for automatic ride synchronization. 
+                        Configured local iOS push notifications (`UNUserNotificationCenter`) firing alerts when component wear exceeds 90%. 
+                        Built a dedicated Analytics tab using SwiftUI `Charts` for weekly mileage trends and component health diagnostics.
+                    </p>
+                    <div class="flex gap-2 flex-wrap">
+                        <span class="px-2 py-1 rounded bg-white/5 text-xs text-gray-300 border border-white/10">Strava API</span>
+                        <span class="px-2 py-1 rounded bg-white/5 text-xs text-gray-300 border border-white/10">UserNotifications</span>
+                        <span class="px-2 py-1 rounded bg-white/5 text-xs text-gray-300 border border-white/10">SwiftUI Charts</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 3: Firebase Backend & Interactive Forms -->
+            <div class="relative md:pl-8 scroll-animate">
+                <div class="absolute -left-[5px] md:-left-2 top-2 w-3 h-3 rounded-full bg-gray-600 ring-4 ring-black"></div>
+                <div class="glass p-6 rounded-2xl opacity-80">
+                    <div class="flex items-center gap-3 mb-2">
+                        <span class="text-gray-400 font-bold text-sm tracking-wider uppercase">Phase 3: Backend & Forms</span>
                         <span class="text-gray-500 text-xs">August 10, 2026</span>
                     </div>
                     <h3 class="text-xl font-bold text-white mb-3">Firebase Auth & Cloud Firestore Sync</h3>
