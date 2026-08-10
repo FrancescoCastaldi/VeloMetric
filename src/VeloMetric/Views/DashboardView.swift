@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct DashboardView: View {
-    @StateObject private var viewModel = GarageViewModel()
+    @EnvironmentObject var viewModel: GarageViewModel
     
     var body: some View {
         NavigationView {
@@ -103,5 +103,6 @@ struct ComponentCard: View {
 struct DashboardView_Previews: PreviewProvider {
     static var previews: some View {
         DashboardView()
+            .environmentObject(GarageViewModel())
     }
 }

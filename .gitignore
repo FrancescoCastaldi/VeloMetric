@@ -50,3 +50,7 @@ fastlane/test_output
 data/*
 !data/.gitkeep
 .DS_Store
+
+# Firebase
+GoogleService-Info.plist
+firebase-debug.log
