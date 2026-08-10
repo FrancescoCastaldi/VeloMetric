@@ -5,6 +5,9 @@ on:
     branches: [ master ]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     name: Build & Package iOS App
@@ -49,15 +52,18 @@ jobs:
           </plist>
           EOF
 
-      - name: Set up Xcode
-        uses: maxim-lobanov/setup-xcode@v1
-        with:
-          xcode-version: '15.4'
+      - name: Select Xcode
+        run: |
+          echo "Available Xcode versions:"
+          ls /Applications/ | grep Xcode
+          sudo xcode-select -s /Applications/Xcode_15.4.app || sudo xcode-select -s /Applications/Xcode.app
+          xcodebuild -version
 
       - name: Resolve Swift Package Dependencies
         run: |
           xcodebuild -project VeloMetric.xcodeproj \
                      -scheme VeloMetric \
+                     -clonedSourcePackagesDirPath SourcePackages \
                      -resolvePackageDependencies
 
       - name: Build iOS Application
@@ -67,10 +73,12 @@ jobs:
                      -sdk iphoneos \
                      -configuration Release \
                      -derivedDataPath DerivedData \
+                     -clonedSourcePackagesDirPath SourcePackages \
                      CODE_SIGN_IDENTITY="" \
                      CODE_SIGNING_REQUIRED=NO \
                      CODE_SIGNING_ALLOWED=NO \
-                     build
+                     COMPILER_INDEX_STORE_ENABLE=NO \
+                     build 2>&1 | tail -100
 
       - name: Package .ipa
         run: |
@@ -83,3 +91,23 @@ jobs:
         with:
           name: VeloMetric-iOS-App
           path: VeloMetric.ipa
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v1.0.0-build.${{ github.run_number }}
+          name: "VeloMetric Build #${{ github.run_number }}"
+          body: |
+            ## 🚴 VeloMetric iOS App — Build #${{ github.run_number }}
+
+            Auto-built from commit `${{ github.sha }}`.
+
+            ### How to install
+            1. Download `VeloMetric.ipa` below
+            2. Use [AltStore](https://altstore.io) or [Sideloadly](https://sideloadly.io) to sideload on your iPhone
+            3. Or open `VeloMetric.xcodeproj` in Xcode and run directly via USB
+
+            > ⚠️ This is an unsigned build. You need a sideloading tool or Xcode to install it.
+          files: VeloMetric.ipa
+          draft: false
+          prerelease: true

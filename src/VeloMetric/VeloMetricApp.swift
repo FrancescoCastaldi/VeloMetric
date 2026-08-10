@@ -39,8 +39,8 @@ struct VeloMetricApp: App {
                     garageViewModel.setupCloudSync(userId: user.uid)
                 }
             }
-            .onChange(of: authViewModel.user) { newUser in
-                if let user = newUser {
+            .onChange(of: authViewModel.isAuthenticated) { _, isAuth in
+                if isAuth, let user = authViewModel.user {
                     garageViewModel.setupCloudSync(userId: user.uid)
                 }
             }
