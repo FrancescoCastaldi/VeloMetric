@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "YOUR_LAST_NAME"
+  given-names: "YOUR_FIRST_NAME"
+  orcid: "https://orcid.org/0000-0000-0000-0000"
+title: "VeloMetric: An iOS Application for Tracking Road Bike Component Wear"
+version: 1.0.0
+date-released: 2026-08-10
+url: "https://github.com/yourusername/velometric"
+repository-code: "https://github.com/yourusername/velometric"
+abstract: >
+  VeloMetric is an iOS application designed to track the wear and tear of road bike components. By logging rides and distances, the app provides cyclists with data-driven insights into the lifespan of their bike parts (e.g., chains, tires, brake pads), facilitating timely maintenance and improving safety and performance.
+keywords:
+  - iOS
+  - cycling
+  - maintenance
+  - sports-tech
+license: MIT
