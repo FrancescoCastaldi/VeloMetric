@@ -54,19 +54,28 @@ jobs:
         with:
           xcode-version: '15.4'
 
-      - name: Build iOS Application (.app & .ipa)
+      - name: Resolve Swift Package Dependencies
+        run: |
+          xcodebuild -project VeloMetric.xcodeproj \
+                     -scheme VeloMetric \
+                     -resolvePackageDependencies
+
+      - name: Build iOS Application
         run: |
           xcodebuild -project VeloMetric.xcodeproj \
                      -scheme VeloMetric \
                      -sdk iphoneos \
                      -configuration Release \
+                     -derivedDataPath DerivedData \
                      CODE_SIGN_IDENTITY="" \
                      CODE_SIGNING_REQUIRED=NO \
                      CODE_SIGNING_ALLOWED=NO \
-                     clean build
+                     build
 
+      - name: Package .ipa
+        run: |
           mkdir -p Payload
-          cp -r build/Release-iphoneos/VeloMetric.app Payload/ || cp -r ~/Library/Developer/Xcode/DerivedData/VeloMetric-*/Build/Products/Release-iphoneos/VeloMetric.app Payload/
+          cp -r DerivedData/Build/Products/Release-iphoneos/VeloMetric.app Payload/
           zip -r VeloMetric.ipa Payload
 
       - name: Upload iOS App Artifact
