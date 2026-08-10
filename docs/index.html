@@ -6,29 +6,145 @@
     <title>VeloMetric - iOS Bike Component Tracker</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { background-color: #000; color: #fff; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
-        .glass { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        body { background-color: #050505; color: #fff; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; overflow-x: hidden; }
+        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.05); }
+        
+        /* Typography Improvements */
+        h1, h2, h3 { text-wrap: balance; }
+        p, li { text-wrap: pretty; }
+
+        /* Scroll-driven animations */
+        @keyframes fade-in-up {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Native CSS Scroll Timeline Support */
+        @supports (animation-timeline: view()) {
+            .scroll-animate {
+                animation: fade-in-up linear both;
+                animation-timeline: view();
+                animation-range: entry 10% cover 30%;
+            }
+        }
+
+        /* Fallback classes applied by JS */
+        .fallback-animate {
+            opacity: 0;
+            transform: translateY(50px) scale(0.95);
+            transition: opacity 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .fallback-animate.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
     </style>
 </head>
-<body class="antialiased min-h-screen flex flex-col items-center justify-center text-center p-6">
+<body class="antialiased min-h-screen">
     
-    <div class="glass max-w-2xl p-12 rounded-3xl shadow-2xl">
-        <h1 class="text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-blue-500">
-            VeloMetric
-        </h1>
-        <p class="text-xl text-gray-400 mb-8">
-            Precision tracking for your road bike's wear and tear. Know exactly when to replace your chain, tires, and cassette.
-        </p>
-        
-        <div class="flex justify-center space-x-4">
-            <a href="https://github.com/yourusername/VeloMetric" class="px-8 py-3 bg-white text-black font-semibold rounded-full hover:bg-gray-200 transition">
-                View on GitHub
-            </a>
-            <a href="#" class="px-8 py-3 glass text-green-400 font-semibold rounded-full hover:bg-white/10 transition">
-                Download TestFlight
-            </a>
+    <!-- Hero Section -->
+    <section class="min-h-screen flex flex-col items-center justify-center text-center p-6 relative">
+        <!-- Subtle background glow -->
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <div class="w-96 h-96 bg-green-500/20 rounded-full blur-[100px]"></div>
         </div>
-    </div>
 
+        <div class="glass max-w-3xl p-12 md:p-16 rounded-3xl shadow-2xl relative z-10 scroll-animate">
+            <h1 class="text-6xl md:text-7xl font-extrabold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-emerald-600 tracking-tight">
+                VeloMetric
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-300 mb-10 leading-relaxed">
+                Precision tracking for your road bike's wear and tear. Know exactly when to replace your chain, tires, and cassette to keep performance at its peak.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+                <a href="https://github.com/FrancescoCastaldi/VeloMetric" class="px-8 py-4 bg-white text-black font-semibold rounded-full hover:scale-105 transition-transform duration-300 w-full sm:w-auto">
+                    View on GitHub
+                </a>
+                <a href="#" class="px-8 py-4 glass text-emerald-400 font-semibold rounded-full hover:bg-white/5 transition-colors duration-300 w-full sm:w-auto">
+                    Download TestFlight
+                </a>
+            </div>
+        </div>
+        
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-10 animate-bounce text-gray-500">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-24 px-6 max-w-6xl mx-auto">
+        <h2 class="text-4xl font-bold text-center mb-16 scroll-animate">Pro-Level Telemetry for Your Bike</h2>
+        
+        <div class="grid md:grid-cols-3 gap-8">
+            <!-- Feature 1 -->
+            <div class="glass p-8 rounded-2xl scroll-animate">
+                <div class="w-12 h-12 bg-green-500/10 text-green-400 rounded-xl flex items-center justify-center mb-6">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <h3 class="text-2xl font-bold mb-3">Component Lifespan</h3>
+                <p class="text-gray-400">Track mileage accurately down to the kilometer. Get notified before your chain stretches and ruins your cassette.</p>
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="glass p-8 rounded-2xl scroll-animate" style="animation-delay: 0.1s;">
+                <div class="w-12 h-12 bg-blue-500/10 text-blue-400 rounded-xl flex items-center justify-center mb-6">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                </div>
+                <h3 class="text-2xl font-bold mb-3">Maintenance Analytics</h3>
+                <p class="text-gray-400">Visualize your bike's health over time. Keep a detailed log of services, replacements, and tuning adjustments.</p>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="glass p-8 rounded-2xl scroll-animate" style="animation-delay: 0.2s;">
+                <div class="w-12 h-12 bg-purple-500/10 text-purple-400 rounded-xl flex items-center justify-center mb-6">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path></svg>
+                </div>
+                <h3 class="text-2xl font-bold mb-3">iCloud Synchronization</h3>
+                <p class="text-gray-400">Your garage is always with you. Seamlessly sync your bikes and data across your iPhone, iPad, and Mac.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-center py-12 text-gray-500 text-sm border-t border-white/5 mt-12 scroll-animate">
+        <p>&copy; 2026 Francesco Castaldi. Built with SwiftUI & Firebase.</p>
+    </footer>
+
+    <!-- JS Fallback for Scroll Animations -->
+    <script>
+        // Check if the browser supports native view timelines
+        if (!CSS.supports('animation-timeline: view()')) {
+            const elements = document.querySelectorAll('.scroll-animate');
+            
+            // Swap classes for JS-based animation
+            elements.forEach(el => {
+                el.classList.remove('scroll-animate');
+                el.classList.add('fallback-animate');
+            });
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            document.querySelectorAll('.fallback-animate').forEach((el) => {
+                observer.observe(el);
+            });
+        }
+    </script>
 </body>
 </html>
