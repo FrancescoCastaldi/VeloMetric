@@ -14,7 +14,7 @@ let package = Package(
             targets: ["VeloMetric"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/firebase/firebase-ios-sdk.git", from: "12.19.1")
+        .package(url: "https://github.com/firebase/firebase-ios-sdk.git", from: "13.0.1")
     ],
     targets: [
         .target(
