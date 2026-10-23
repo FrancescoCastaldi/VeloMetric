@@ -93,7 +93,7 @@ jobs:
           path: VeloMetric.ipa
 
       - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           tag_name: v1.0.0-build.${{ github.run_number }}
           name: "VeloMetric Build #${{ github.run_number }}"
